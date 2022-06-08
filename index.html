@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- https://www.bootstrapcdn.com/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Energy</title>
+</head>
+
+<body style="margin: 5px; background: linear-gradient(69deg, teal, teal, purple, brown); height: 100vh;">
+    <div id="app">
+
+        <h2>Get All (GET)</h2>
+        <button id="getAllButton" v-on:click="getAllData" class="btn btn-primary">Get all Energy Data</button> 
+        <button v-on:click="getAllData('joule')" class="btn btn-secondary">Convert to Joule</button> 
+        <button v-on:click="getAllData('calorie')" class="btn btn-secondary">Convert to Calorie</button>
+        <br />
+        <br>
+
+        <table v-if="data.length" class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>energyMetric</th>
+                    <th>value</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="energy in data">
+
+                    <td> {{energy.id}} </td>
+                    <td> {{energy.energyMetric}} </td>
+                    <td> {{energy.value}} </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div v-else>No data</div>
+        <br>
+        <h2>Add (POST)</h2>
+        <input v-model="addData.energyMetric" placeholder="energy Metric" type="text" />
+        <input v-model="addData.value" placeholder="value" type="number" />
+        
+        <button v-on:click="add()" class="btn btn-success">Add</button>
+        <div>{{addMessage}}</div>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+<style>
+    input, button{
+        margin-right: 5px;
+    }
+</style>
+</html>
